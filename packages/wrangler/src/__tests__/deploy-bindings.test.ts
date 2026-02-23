@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 import { Buffer } from "node:buffer";
 import { spawnSync } from "node:child_process";
 import * as fs from "node:fs";
-import { sync } from "command-exists";
 import { writeWranglerConfig } from "@cloudflare/workers-utils/test-helpers";
+import { sync } from "command-exists";
 import { http, HttpResponse } from "msw";
 import * as TOML from "smol-toml";
 /* eslint-disable workers-sdk/no-vitest-import-expect -- large file with .each and custom matchers */
@@ -3129,5 +3128,4 @@ describe("deploy", () => {
 			});
 		});
 	});
-
 });

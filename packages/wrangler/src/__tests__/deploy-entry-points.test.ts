@@ -1,16 +1,12 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 import { Buffer } from "node:buffer";
-import { spawnSync } from "node:child_process";
 import { randomFillSync } from "node:crypto";
 import * as fs from "node:fs";
-import { readFile } from "node:fs/promises";
 import * as path from "node:path";
-import { ParseError, findWranglerConfig } from "@cloudflare/workers-utils";
+import { findWranglerConfig, ParseError } from "@cloudflare/workers-utils";
 import {
 	normalizeString,
 	writeWranglerConfig,
 } from "@cloudflare/workers-utils/test-helpers";
-import { sync } from "command-exists";
 import * as esbuild from "esbuild";
 import { http, HttpResponse } from "msw";
 import dedent from "ts-dedent";
@@ -20,7 +16,6 @@ import { afterEach, beforeEach, describe, expect, it, test, vi } from "vitest";
 import { getInstalledPackageVersion } from "../autoconfig/frameworks/utils/packages";
 import { printBundleSize } from "../deployment-bundle/bundle-reporter";
 import { clearOutputFilePath } from "../output";
-import { NpmPackageManager } from "../package-manager";
 import { fetchSecrets } from "../utils/fetch-secrets";
 import { diagnoseScriptSizeError } from "../utils/friendly-validator-errors";
 import {
@@ -48,7 +43,6 @@ import { runInTempDir } from "./helpers/run-in-tmp";
 import { runWrangler } from "./helpers/run-wrangler";
 import { writeWorkerSource } from "./helpers/write-worker-source";
 import type { AssetManifest } from "../assets";
-import type { Mock } from "vitest";
 
 vi.mock("command-exists");
 vi.mock("../check/commands", async (importOriginal) => {
@@ -3434,5 +3428,4 @@ export default{
 			await runWrangler("deploy -c some/dir/wrangler.toml");
 		});
 	});
-
 });

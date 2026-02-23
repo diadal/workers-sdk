@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 import * as fs from "node:fs";
 import { writeWranglerConfig } from "@cloudflare/workers-utils/test-helpers";
 import { http, HttpResponse } from "msw";
@@ -11,14 +10,14 @@ import { clearOutputFilePath } from "../output";
 import { fetchSecrets } from "../utils/fetch-secrets";
 import {
 	checkAssetUpload,
+	mockAssetUploadRequest,
+	mockAUSRequest,
+	mockDeleteUnusedAssetsRequest,
 	mockDeploymentsListRequest,
 	mockLastDeploymentRequest,
 	mockPatchScriptSettings,
-	writeAssets,
 	mockUploadAssetsToKVRequest,
-	mockDeleteUnusedAssetsRequest,
-	mockAUSRequest,
-	mockAssetUploadRequest,
+	writeAssets,
 } from "./deploy-test-utils";
 import { mockAccountId, mockApiToken } from "./helpers/mock-account-id";
 import { mockConsoleMethods } from "./helpers/mock-console";
@@ -2797,5 +2796,4 @@ describe("deploy", () => {
 			await runWrangler("deploy --dispatch-namespace my-namespace");
 		});
 	});
-
 });

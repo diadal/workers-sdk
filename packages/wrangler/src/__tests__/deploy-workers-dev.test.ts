@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-object-type */
 import * as fs from "node:fs";
 import {
 	normalizeString,

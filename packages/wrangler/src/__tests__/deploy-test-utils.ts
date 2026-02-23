@@ -3,9 +3,7 @@ import { Buffer } from "node:buffer";
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { http, HttpResponse } from "msw";
-/* eslint-disable workers-sdk/no-vitest-import-expect -- shared deploy test helpers with custom matchers */
 import { expect } from "vitest";
-/* eslint-enable workers-sdk/no-vitest-import-expect */
 import { captureRequestsFrom } from "./helpers/capture-requests-from";
 import {
 	createFetchResult,
