@@ -131,4 +131,41 @@ describe.skipIf(!CLOUDFLARE_ACCOUNT_ID)("deploy", { timeout: TIMEOUT }, () => {
 			`);
 		});
 	});
+
+	describe("cache options", () => {
+		let cacheHelper: WranglerE2ETestHelper;
+		const cacheWorkerName = generateResourceName("cache");
+
+		beforeAll(async () => {
+			cacheHelper = new WranglerE2ETestHelper();
+			await cacheHelper.seed({
+				"wrangler.toml": dedent`
+					name = "${cacheWorkerName}"
+					main = "src/index.ts"
+					compatibility_date = "2023-01-01"
+
+					[cache]
+					enabled = true
+				`,
+				"src/index.ts": dedent`
+					export default {
+						fetch(request) {
+							return new Response("Hello World!")
+						}
+					}
+				`,
+			});
+		});
+
+		afterAll(async () => {
+			await cacheHelper.run(`wrangler delete --name ${cacheWorkerName}`);
+		});
+
+		it("deploy with cache enabled", async () => {
+			const deploy = await cacheHelper.run("wrangler deploy");
+			expect(deploy.status).toBe(0);
+			expect(deploy.stdout).toContain("Uploaded");
+			expect(deploy.stdout).toContain(cacheWorkerName);
+		});
+	});
 });
